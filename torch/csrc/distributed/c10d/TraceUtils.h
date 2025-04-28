@@ -17,7 +17,6 @@
 #include <sys/types.h>
 #include <cstdlib>
 #include <cstring>
-#include <iterator>
 #include <string>
 #include <vector>
 
@@ -99,9 +98,9 @@ inline std::string ranksFromTrace(
   bool first = true;
   for (const auto& [rank, _] : items) {
     if (!first) {
-      fmt::format_to(std::back_inserter(buf), ", ");
+      fmt::format_to(buf, ", ");
     }
-    fmt::format_to(std::back_inserter(buf), "{}", rank);
+    fmt::format_to(buf, "{}", rank);
     first = false;
   }
   return fmt::to_string(buf);
@@ -324,7 +323,7 @@ inline std::string get_python_cpp_trace() {
     auto frame_id = s_tb[idx];
     const auto& frame = s_tbs.all_frames.at(frame_id);
     fmt::format_to(
-        std::back_inserter(buf),
+        buf,
         TB_FMT_CSTR,
         idx,
         frame.funcname,
